@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import Menu from '../components/Menu.astro';
 const pageTitle = "About Me";
 
 const identity = {
@@ -39,6 +40,7 @@ const skillColor = "crimson";
         </style>
 	</head>
 	<body>
+        <Menu />
         <Header />
 
 		<h1>{pageTitle}</h1>
@@ -68,5 +70,8 @@ const skillColor = "crimson";
         {goal === 3 ? <p>My goal is to finish in 3 days. </p> : <p>My goal is not 3 days.</p>}
 
         <Footer />
+        <script>
+            import "../scripts/menu.js";
+        </script>
 	</body>
 </html>
