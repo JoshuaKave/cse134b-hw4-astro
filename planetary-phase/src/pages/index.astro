@@ -1,7 +1,65 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const pageTitle = "Home Page";
+import BlogPost from '../components/BlogPost.astro';
+
+const pageTitle = "Welcome to my Astro Site!";
+
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
+const recentPosts = allPosts
+  .sort((a: any, b: any) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
+  .slice(0, 3);
 ---
+
 <BaseLayout pageTitle={pageTitle}>
-  <h2>My awesome blog subtitle</h2>
+  <p>A personal blog exploring web development, investing, and learning in public.</p>
+
+  <section>
+    <h2>Recent Posts</h2>
+    <ul>
+      {recentPosts.map((post: any) => (
+        <BlogPost url={post.url} title={post.frontmatter.title} />
+      ))}
+    </ul>
+    <p><a href="/blog/">View all posts</a></p>
+  </section>
+
+  <section>
+    <h2>Topics</h2>
+    <ul>
+      <li> Web Development</li>
+      <li> Investing</li>
+      <li> Learning in Public</li>
+    </ul>
+  </section>
+
+  <p><a href="/about/">Learn more about me</a></p>
 </BaseLayout>
+
+<style>
+  h1 {
+    color: #0d0950;
+    margin-bottom: 0.5rem;
+  }
+
+  section {
+    margin: 2rem 0;
+  }
+
+  section h2 {
+    color: #0d0950;
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    padding-left: 1.5rem;
+  }
+
+  a {
+    color: #667eea;
+    font-weight: 500;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
